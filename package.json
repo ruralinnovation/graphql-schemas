@@ -3,6 +3,8 @@
   "version": "0.0.2",
   "author": "Rural Innovation Strategies, Inc.",
   "description": "CORI Data API GraphQL schemas",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "files": [
     "dist"
   ],
@@ -26,7 +28,8 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^16.18.68",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
