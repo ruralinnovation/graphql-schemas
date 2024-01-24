@@ -52,7 +52,7 @@ const ch_test = {
 
     const values = await sequelize.query(`
 SELECT geoid, geoid_tr, CONCAT(statefp, countyfp) as geoid_co, pct_bb_25_3, st_simplify(st_transform(geom, 4326), 0.0) as geom
-    FROM sch_census_tiger.source_tiger_2020_tracts, sch_proj_climate.ch_app_wide_tract
+    FROM sch_census_tiger.source_tiger_2020_tracts, proj_climate.ch_app_wide_tract
     WHERE statefp = '33' AND countyfp = '009' AND geoid = geoid_tr;
 `,
       { type: QueryTypes.SELECT });
