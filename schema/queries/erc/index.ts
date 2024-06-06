@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import GeoJSON from '../geojson';
-import ch_test from "./ch_test";
+import erc_test from "./erc_test";
 
-const connectHumanityQueries: any = {
-  ch_test: ch_test
+const ercS3Queries: any = {
+  erc_test: erc_test
 };
 
-export default connectHumanityQueries;
+export default ercS3Queries;

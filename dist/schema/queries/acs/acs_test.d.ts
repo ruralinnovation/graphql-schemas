@@ -1,4 +1,4 @@
-import { GraphQLObjectType } from "graphql/index";
+import { GraphQLObjectType } from "graphql/type";
 declare const acs_test: {
     type: GraphQLObjectType<any, any>;
     args: null;

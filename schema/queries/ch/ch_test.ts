@@ -1,4 +1,4 @@
-import { GraphQLFloat, GraphQLObjectType, GraphQLString } from "graphql/index";
+import { GraphQLFloat, GraphQLObjectType, GraphQLString } from "graphql/type";
 // import { GraphQLList } from "graphql";
 import { QueryTypes, Sequelize } from "sequelize";
 
@@ -33,20 +33,20 @@ const ch_test = {
 
     const sequelize = new Sequelize(config.database, config.user, config.password, config);
 
-    const value = {
-      ...config,
-      "acs_test": {
-        "message": "value of a an \"acs_test\" encapsulated property"
-      },
-      "message": ("value of a top level property"),
-      "geoid_co": "33009",
-      "name": "pct_bb_25_3",
-      "value": 0.8366,
-      "category": "bb",
-      "variable": "25_3",
-      "category_pl": "Broadband",
-      "description": "Percent of broadband serviceable locations with access to 25/3",
-    };
+    // const value = {
+    //   ...config,
+    //   "acs_test": {
+    //     "message": "value of a an \"acs_test\" encapsulated property"
+    //   },
+    //   "message": ("value of a top level property"),
+    //   "geoid_co": "33009",
+    //   "name": "pct_bb_25_3",
+    //   "value": 0.8366,
+    //   "category": "bb",
+    //   "variable": "25_3",
+    //   "category_pl": "Broadband",
+    //   "description": "Percent of broadband serviceable locations with access to 25/3",
+    // };
 
     console.log("Resolve ch_tets no args: \n", __);
 
@@ -59,13 +59,13 @@ SELECT geoid, geoid_tr, CONCAT(statefp, countyfp) as geoid_co, pct_bb_25_3, st_s
 
     return values.map(v => {
       console.log("ch_test resolver will return value: ", {
-        ...value,
+        // ...value,
         ...v
       });
       console.log("pct_bb_25_3", v["pct_bb_25_3"]);
 
       return {
-        ...value,
+        // ...value,
         ...v,
         "value": v["pct_bb_25_3"]
       };

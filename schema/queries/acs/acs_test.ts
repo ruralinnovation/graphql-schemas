@@ -1,8 +1,8 @@
-import { GraphQLObjectType, GraphQLString } from "graphql/index";
+import { GraphQLObjectType, GraphQLString } from "graphql/type";
 
 const acs_test = {
   type: new GraphQLObjectType({
-    name: 'TestObject',
+    name: 'ACSTestObject',
     fields: () => ({
       message: { type: GraphQLString }
     })
