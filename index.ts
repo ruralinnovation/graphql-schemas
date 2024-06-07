@@ -1,7 +1,10 @@
 // import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { printSchema } from 'graphql';
-import { schemas } from './merge-schemas';
+import mergeSchemas from './src/merge-schemas';
+import * as queries from './src/schema/queries';
+
+const schemas = mergeSchemas(queries as unknown as [any]);
 
 try {
   if (!existsSync('dist')) {
