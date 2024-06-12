@@ -1,4 +1,4 @@
-import GeoJSON from "../../geojson";
+import GeoJSON from "../../types/geojson";
 import { GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLString } from "graphql/type";
 
 // TODO: Remove after testing call to local Python REST API

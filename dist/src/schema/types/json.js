@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.JSONObject = void 0;
+const definition_1 = require("graphql/type/definition");
+function coerceObject(value) {
+    try {
+        return JSON.parse(value);
+    }
+    catch (err) {
+        return value;
+    }
+}
+function parseObject(valueAST) {
+    return JSON.stringify(valueAST.value);
+}
+exports.JSONObject = new definition_1.GraphQLScalarType({
+    name: 'JSONObject',
+    description: 'Arbitrary JSON value',
+    serialize: coerceObject,
+    parseValue: coerceObject,
+    parseLiteral: parseObject,
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoianNvbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9zY2hlbWEvdHlwZXMvanNvbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQSx3REFBMEU7QUFFMUUsU0FBUyxZQUFZLENBQUUsS0FBVTtJQUMvQixJQUFJLENBQUM7UUFDSCxPQUFPLElBQUksQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLENBQUM7SUFDM0IsQ0FBQztJQUFDLE9BQU8sR0FBRyxFQUFFLENBQUM7UUFDYixPQUFPLEtBQUssQ0FBQztJQUNmLENBQUM7QUFDSCxDQUFDO0FBRUQsU0FBUyxXQUFXLENBQUUsUUFBYTtJQUNqQyxPQUFPLElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLEtBQUssQ0FBQyxDQUFDO0FBQ3hDLENBQUM7QUFFWSxRQUFBLFVBQVUsR0FBRyxJQUFJLDhCQUFVLENBQUM7SUFDdkMsSUFBSSxFQUFFLFlBQVk7SUFDbEIsV0FBVyxFQUFFLHNCQUFzQjtJQUNuQyxTQUFTLEVBQUUsWUFBWTtJQUN2QixVQUFVLEVBQUUsWUFBWTtJQUN4QixZQUFZLEVBQUUsV0FBVztDQUMxQixDQUFDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBHcmFwaFFMU2NhbGFyVHlwZSBhcyBTY2FsYXJUeXBlIH0gZnJvbSBcImdyYXBocWwvdHlwZS9kZWZpbml0aW9uXCI7XG5cbmZ1bmN0aW9uIGNvZXJjZU9iamVjdCAodmFsdWU6IGFueSkge1xuICB0cnkge1xuICAgIHJldHVybiBKU09OLnBhcnNlKHZhbHVlKTtcbiAgfSBjYXRjaCAoZXJyKSB7XG4gICAgcmV0dXJuIHZhbHVlO1xuICB9XG59XG5cbmZ1bmN0aW9uIHBhcnNlT2JqZWN0ICh2YWx1ZUFTVDogYW55KSB7XG4gIHJldHVybiBKU09OLnN0cmluZ2lmeSh2YWx1ZUFTVC52YWx1ZSk7XG59XG5cbmV4cG9ydCBjb25zdCBKU09OT2JqZWN0ID0gbmV3IFNjYWxhclR5cGUoe1xuICBuYW1lOiAnSlNPTk9iamVjdCcsXG4gIGRlc2NyaXB0aW9uOiAnQXJiaXRyYXJ5IEpTT04gdmFsdWUnLFxuICBzZXJpYWxpemU6IGNvZXJjZU9iamVjdCxcbiAgcGFyc2VWYWx1ZTogY29lcmNlT2JqZWN0LFxuICBwYXJzZUxpdGVyYWw6IHBhcnNlT2JqZWN0LFxufSk7XG4iXX0=

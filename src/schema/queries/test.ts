@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLBoolean, GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
-import GeoJSON from '../geojson';
+import GeoJSON from '../types/geojson';
 
 export default {
   test: {

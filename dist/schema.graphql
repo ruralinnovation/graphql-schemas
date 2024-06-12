@@ -150,5 +150,6 @@ type GeoJSONFeature implements GeoJSONInterface {
 scalar JSONObject
 
 type ERCS3TestObject {
+  erc_s3_test: JSONObject
   message: String
 }

@@ -9,6 +9,7 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLFloat as Float,
 } from 'graphql';
+import { JSONObject } from "./json";
 
 function coerceCoordinates(value) {
   return value;
@@ -16,18 +17,6 @@ function coerceCoordinates(value) {
 
 function parseCoordinates(valueAST) {
   return valueAST.value;
-}
-
-function coerceObject(value) {
-  try {
-    return JSON.parse(value);
-  } catch (err) {
-    return value;
-  }
-}
-
-function parseObject(valueAST) {
-  return JSON.stringify(valueAST.value);
 }
 
 const GeoJSON = {
@@ -55,13 +44,7 @@ const GeoJSON = {
     parseLiteral: parseCoordinates,
   }),
 
-  JsonScalar: new ScalarType({
-    name: 'JSONObject',
-    description: 'Arbitrary JSON value',
-    serialize: coerceObject,
-    parseValue: coerceObject,
-    parseLiteral: parseObject,
-  }),
+  JsonScalar: JSONObject,
 
   PointObject: new ObjectType({
     name: 'GeoJSONPoint',

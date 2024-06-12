@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLArgumentConfig, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLString } from 'graphql';
-import GeoJSON from '../../geojson';
+import GeoJSON from '../../types/geojson';
 
 // TODO: Remove after testing call to local Python REST API
 import { fetch } from 'cross-fetch';

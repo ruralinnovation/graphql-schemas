@@ -6,7 +6,7 @@ import {
   GraphQLSchema,
   // GraphQLString
 } from 'graphql';
-import GeoJSON from './schema/geojson';
+import GeoJSON from './schema/types/geojson';
 
 export default function (queries: [any]) {
   const combinedQueries = Object.values(queries).reduce((obj, query) => {
