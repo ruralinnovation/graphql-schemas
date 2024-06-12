@@ -1,15 +1,16 @@
 import { GraphQLScalarType as ScalarType } from "graphql/type/definition";
+import { parse, stringify } from "flatted";
 
 function coerceObject (value: any) {
   try {
-    return JSON.parse(value);
+    return parse(value);
   } catch (err) {
     return value;
   }
 }
 
 function parseObject (valueAST: any) {
-  return JSON.stringify(valueAST.value);
+  return stringify(valueAST.value);
 }
 
 export const JSONObject = new ScalarType({

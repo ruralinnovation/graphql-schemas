@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLString } from "graphql/type";
 import { Logger } from '@aws-lambda-powertools/logger';
 import { S3, S3ClientConfig } from "@aws-sdk/client-s3";
-import { stringify} from "flatted";
+import { stringify } from "flatted";
 import { JSONObject } from "../../types";
 
 const logger = new Logger();
@@ -52,25 +52,38 @@ const erc_test = {
     logger.info(`AWS credentials: ${stringify(s3_config)}`);
     const s3 = new S3(s3_config);
 
-    // TODO: Try to fetch S3 resource
     logger.info(`S3 buckets: ${stringify(s3.listBuckets())}`);
-    const erc_metadata_json = (await s3.getObject({
-      Key: "test/metadata.json",
-      Bucket: "erc-public"
-    }));
 
-    logger.info(`S3 object: ${stringify(erc_metadata_json.Body)}`);
+    // TODO: Try to fetch list of objects in bucket/prefix
+    const erc_list = await (s3.listObjectsV2({
+      Bucket: "erc-public",
+      Prefix: `test/`,
+    }));
+    if (typeof erc_list.Contents !== "object" || erc_list.Contents?.length === 0) {
+      logger.info(`No objects found under s3://erc-public/test/`);
+    } else {
+      erc_list.Contents.forEach(c => {
+        logger.info(c.Key?.toString() || "");
+      });
+    }
+
+    // TODO: Try to fetch S3 resource
+    const erc_metadata_json = (await s3.getObject({
+      Bucket: "erc-public",
+      Key: "test/metadata.json"
+    }));
+    const erc_metadata_body = erc_metadata_json.Body;
+    const erc_metadata_body_to_string = (typeof erc_metadata_body === "object") ?
+      (await erc_metadata_body.transformToString()) :
+      "S3 object Body is undefined";
+
+    logger.info(`S3 object Body: ${erc_metadata_body_to_string}`);
 
     const value = {
-      "erc_s3_test": erc_metadata_json.Body,
-      "message": ("value of a top level property"),
-      "geoid_co": "33009",
-      "name": "pct_bb_25_3",
-      "value": 0.8366,
-      "category": "bb",
-      "variable": "25_3",
-      "category_pl": "Broadband",
-      "description": "Percent of broadband serviceable locations with access to 25/3",
+      "erc_s3_test": {
+        "Body": JSON.parse(erc_metadata_body_to_string)
+      },
+      "message": erc_metadata_body_to_string
     };
 
     return [{ // An array (list) fails to transfer gzipped by local sam cli...
