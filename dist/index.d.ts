@@ -1,2 +1,2 @@
-import { schemas } from './merge-schemas';
+declare const schemas: import("graphql").GraphQLSchema;
 export { schemas as schema };

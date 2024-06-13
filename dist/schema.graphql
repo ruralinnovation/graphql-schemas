@@ -13,6 +13,7 @@ type RootQueryType {
   auction_904_defaults(geoid_co: [String], limit: Int, offset: Int, page: Int, skipCache: Boolean): GeoJSONFeatureCollection
   auction_904_defaults_geojson(geoid_co: String, geoid_bl: [String], limit: Int, offset: Int, page: Int, skipCache: Boolean): GeoJSONFeatureCollection
   auction_904_subsidy_awards_geojson(geoid_co: String, limit: Int, offset: Int, page: Int, skipCache: Boolean): GeoJSONFeatureCollection
+  erc_test: ERCS3TestObject
 }
 
 """Geometry Types"""
@@ -147,3 +148,8 @@ type GeoJSONFeature implements GeoJSONInterface {
 
 """Arbitrary JSON value"""
 scalar JSONObject
+
+type ERCS3TestObject {
+  erc_s3_test: JSONObject
+  message: String
+}
