@@ -2,7 +2,7 @@
   "name": "@cori-risi/graphql-schemas",
   "version": "0.0.3",
   "author": "Rural Innovation Strategies, Inc.",
-  "description": "CORI Data API GraphQL schemas",
+  "description": "GraphQL schemas for the CORI Data API (CDA)",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
