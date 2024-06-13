@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import GeoJSON from '../geojson';
+const erc_test_1 = require("./erc_test");
+const ercS3Queries = {
+    erc_test: erc_test_1.default
+};
+exports.default = ercS3Queries;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi9zcmMvQGNvcmktcmlzaS9zY2hlbWEvcXVlcmllcy9lcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2REFBNkQ7QUFDN0Qsc0RBQXNEO0FBQ3RELHVEQUF1RDtBQUN2RCxvQ0FBb0M7QUFDcEMseUNBQWtDO0FBRWxDLE1BQU0sWUFBWSxHQUFRO0lBQ3hCLFFBQVEsRUFBRSxrQkFBUTtDQUNuQixDQUFDO0FBRUYsa0JBQWUsWUFBWSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyogZXNsaW50LWRpc2FibGUgQHR5cGVzY3JpcHQtZXNsaW50L25vLW5vbi1udWxsLWFzc2VydGlvbiAqL1xuLyogZXNsaW50LWRpc2FibGUgQHR5cGVzY3JpcHQtZXNsaW50L25vLXVudXNlZC12YXJzICovXG4vKiBlc2xpbnQtZGlzYWJsZSBAdHlwZXNjcmlwdC1lc2xpbnQvbm8tZXhwbGljaXQtYW55ICovXG4vLyBpbXBvcnQgR2VvSlNPTiBmcm9tICcuLi9nZW9qc29uJztcbmltcG9ydCBlcmNfdGVzdCBmcm9tIFwiLi9lcmNfdGVzdFwiO1xuXG5jb25zdCBlcmNTM1F1ZXJpZXM6IGFueSA9IHtcbiAgZXJjX3Rlc3Q6IGVyY190ZXN0XG59O1xuXG5leHBvcnQgZGVmYXVsdCBlcmNTM1F1ZXJpZXM7XG4iXX0=
