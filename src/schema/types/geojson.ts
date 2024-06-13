@@ -11,11 +11,11 @@ import {
 } from 'graphql';
 import { JSONObject } from "./json";
 
-function coerceCoordinates(value) {
+function coerceCoordinates(value: any) {
   return value;
 }
 
-function parseCoordinates(valueAST) {
+function parseCoordinates(valueAST: any) {
   return valueAST.value;
 }
 
@@ -44,7 +44,7 @@ const GeoJSON = {
     parseLiteral: parseCoordinates,
   }),
 
-  JsonScalar: JSONObject,
+  JSONObject: JSONObject,
 
   PointObject: new ObjectType({
     name: 'GeoJSONPoint',
@@ -139,7 +139,7 @@ const GeoJSON = {
       crs: { type: GeoJSON.CoordinateReferenceSystemObject },
       bbox: { type: new List(Float) },
       geometry: { type: GeoJSON.GeometryInterface },
-      properties: { type: GeoJSON.JsonScalar },
+      properties: { type: GeoJSON.JSONObject },
       id: { type: Str },
     }),
   }),
@@ -228,22 +228,6 @@ const GeoJSON = {
     // resolveType: value => value.type,
   }),
 
-  /**
-   *     name: 'GeoJSONType',
-    description: 'Enumeration of all GeoJSON object types.',
-    values: {
-      Point: { value: 'Point' },
-      MultiPoint: { value: 'MultiPoint' },
-      LineString: { value: 'LineString' },
-      MultiLineString: { value: 'MultiLineString' },
-      Polygon: { value: 'Polygon' },
-      MultiPolygon: { value: 'MultiPolygon' },
-      GeometryCollection: { value: 'GeometryCollection' },
-      Feature: { value: 'Feature' },
-      FeatureCollection: { value: 'FeatureCollection' },
-    },
-  }),
-   */
   GeometryTypeUnion: new UnionType({
     name: 'GeoJSONGeometryTypes',
     description: 'Geometry Types',

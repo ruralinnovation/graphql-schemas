@@ -1,7 +1,7 @@
-import { GraphQLObjectType, GraphQLString } from "graphql/type";
 import { Logger } from '@aws-lambda-powertools/logger';
 import { S3, S3ClientConfig } from "@aws-sdk/client-s3";
-import { stringify } from "flatted";
+import { GraphQLObjectType, GraphQLString } from "graphql/type";
+import { stringify, toJSON } from "flatted";
 import { JSONObject } from "../../types";
 
 const logger = new Logger();
@@ -21,68 +21,60 @@ const erc_test = {
   resolve: async (
     _: any,
     __: any,
-    { dataSources: { pythonApi } }: any,
+    {
+      dataSources: {
+        pythonApi,
+        s3DataSource
+      }
+    }: any,
     info: any
   ) =>  {
 
     logger.info('This is an INFO log!');
-    logger.info(`erc_s3_test dataSources: ${stringify([
-      pythonApi
+    logger.info(`dataSources: ${stringify([
+      pythonApi,
+      s3DataSource
     ])}`);
 
-    // TODO: Add S3 fetch logic...
-    // // TODO: Find a new way to set credentials for S3
-    // // This method of setting creds is deprecated...
-    // // JS SDK v3 does not support global configuration.
-    // // Codemod has attempted to pass values to each service client in this file.
-    // // You may need to update clients outside of this file, if they use global config.
-    // AWS.config.update({
-    //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    //   region: process.env.AWS_REGION,
-    // });
+    const s3 = new S3((s3DataSource as any).config);
+    const Bucket = "erc-public";
 
-    const s3_config: S3ClientConfig = {
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-      },
-      region: process.env.AWS_REGION,
-    };
-    logger.info(`AWS credentials: ${stringify(s3_config)}`);
-    const s3 = new S3(s3_config);
-
-    logger.info(`S3 buckets: ${stringify(s3.listBuckets())}`);
+    // // TODO: Try to fetch list of buckets
+    // const s3_bucket_list = await (s3.listBuckets());
+    // if (typeof s3_bucket_list.Buckets !== "object" || s3_bucket_list.Buckets?.length === 0) {
+    //   logger.info(`No S3 buckets found`);
+    // } else {
+    //   s3_bucket_list.Buckets.forEach(b => {
+    //     logger.info(b.Name?.toString() || "");
+    //   });
+    // }
 
     // TODO: Try to fetch list of objects in bucket/prefix
-    const erc_list = await (s3.listObjectsV2({
-      Bucket: "erc-public",
+    const erc_object_list = await (s3.listObjectsV2({
+      Bucket,
       Prefix: `test/`,
     }));
-    if (typeof erc_list.Contents !== "object" || erc_list.Contents?.length === 0) {
-      logger.info(`No objects found under s3://erc-public/test/`);
+    if (typeof erc_object_list.Contents !== "object" || erc_object_list.Contents?.length === 0) {
+      logger.info(`No objects found under s3://${Bucket}/test/`);
     } else {
-      erc_list.Contents.forEach(c => {
+      erc_object_list.Contents.forEach(c => {
         logger.info(c.Key?.toString() || "");
       });
     }
 
     // TODO: Try to fetch S3 resource
     const erc_metadata_json = (await s3.getObject({
-      Bucket: "erc-public",
+      Bucket,
       Key: "test/metadata.json"
     }));
-    const erc_metadata_body = erc_metadata_json.Body;
-    const erc_metadata_body_to_string = (typeof erc_metadata_body === "object") ?
-      (await erc_metadata_body.transformToString()) :
-      "S3 object Body is undefined";
+    const erc_metadata_body_to_string = (typeof erc_metadata_json.Body === "object") ?
+      (await erc_metadata_json.Body?.transformToString()) :
+      `{ "Error": "S3 object Body is undefined" }`;
 
     logger.info(`S3 object Body: ${erc_metadata_body_to_string}`);
 
     const value = {
-      "erc_s3_test": {
-        "Body": JSON.parse(erc_metadata_body_to_string)
-      },
+      "erc_s3_test": JSON.parse(erc_metadata_body_to_string),
       "message": erc_metadata_body_to_string
     };
 
@@ -91,6 +83,5 @@ const erc_test = {
     }][0];    // ... but a single return object can be gzipped locally
   }
 };
-
 
 export default erc_test;
