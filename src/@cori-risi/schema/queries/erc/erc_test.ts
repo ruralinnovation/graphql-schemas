@@ -36,7 +36,8 @@ const erc_test = {
     //   s3DataSource
     // ])}`);
 
-    const s3 = new S3((s3DataSource as any).config);
+    // const s3 = new S3((s3DataSource as any).config);
+    const s3 = new S3();
     const Bucket = "erc-public";
 
     // TODO: Try to fetch list of objects in bucket/prefix
