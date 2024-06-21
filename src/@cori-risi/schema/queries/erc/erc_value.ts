@@ -43,22 +43,9 @@ const erc_value = {
     //   s3DataSource
     // ])}`);
 
-    const s3 = new S3((s3DataSource as any).config);
+    // const s3 = new S3((s3DataSource as any).config);
+    const s3 = new S3();
     const Bucket = "erc-public";
-
-    // // TODO: Try to fetch list of objects in bucket/prefix
-    // const erc_object_list = await (s3.listObjectsV2({
-    //   Bucket,
-    //   Prefix: `test/`,
-    // }));
-    // if (typeof erc_object_list.Contents !== "object" || erc_object_list.Contents?.length === 0) {
-    //   logger.info(`No objects found under s3://${Bucket}/test/`);
-    // } else {
-    //   erc_object_list.Contents.forEach(c => {
-    //     logger.info(c.Key?.toString() || "");
-    //   });
-    // }
-    // // ... works, but the file keys are returned as a partial list; not reliable
 
     // TODO: Try to fetch S3 resource (object by key)
     const erc_metadata_json = (await s3.getObject({
