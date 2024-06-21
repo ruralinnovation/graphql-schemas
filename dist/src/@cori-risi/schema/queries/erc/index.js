@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import GeoJSON from '../geojson';
+const erc_test_1 = require("./erc_test");
+const erc_value_1 = require("./erc_value");
+const ercS3Queries = {
+    erc_test: erc_test_1.default,
+    erc_value: erc_value_1.default
+};
+exports.default = ercS3Queries;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi9zcmMvQGNvcmktcmlzaS9zY2hlbWEvcXVlcmllcy9lcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2REFBNkQ7QUFDN0Qsc0RBQXNEO0FBQ3RELHVEQUF1RDtBQUN2RCxvQ0FBb0M7QUFDcEMseUNBQWtDO0FBQ2xDLDJDQUFvQztBQUVwQyxNQUFNLFlBQVksR0FBUTtJQUN4QixRQUFRLEVBQUUsa0JBQVE7SUFDbEIsU0FBUyxFQUFFLG1CQUFTO0NBQ3JCLENBQUM7QUFFRixrQkFBZSxZQUFZLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBlc2xpbnQtZGlzYWJsZSBAdHlwZXNjcmlwdC1lc2xpbnQvbm8tbm9uLW51bGwtYXNzZXJ0aW9uICovXG4vKiBlc2xpbnQtZGlzYWJsZSBAdHlwZXNjcmlwdC1lc2xpbnQvbm8tdW51c2VkLXZhcnMgKi9cbi8qIGVzbGludC1kaXNhYmxlIEB0eXBlc2NyaXB0LWVzbGludC9uby1leHBsaWNpdC1hbnkgKi9cbi8vIGltcG9ydCBHZW9KU09OIGZyb20gJy4uL2dlb2pzb24nO1xuaW1wb3J0IGVyY190ZXN0IGZyb20gXCIuL2VyY190ZXN0XCI7XG5pbXBvcnQgZXJjX3ZhbHVlIGZyb20gXCIuL2VyY192YWx1ZVwiO1xuXG5jb25zdCBlcmNTM1F1ZXJpZXM6IGFueSA9IHtcbiAgZXJjX3Rlc3Q6IGVyY190ZXN0LFxuICBlcmNfdmFsdWU6IGVyY192YWx1ZVxufTtcblxuZXhwb3J0IGRlZmF1bHQgZXJjUzNRdWVyaWVzO1xuIl19
