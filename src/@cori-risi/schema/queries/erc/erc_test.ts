@@ -15,6 +15,7 @@ const erc_test = {
       fields: () => ({
         erc_s3_test: { type: JSONObject },
         message: { type: GraphQLString },
+        type: { type: GraphQLString }
       })
     }),
   args: null,
@@ -46,7 +47,7 @@ const erc_test = {
       Prefix: `test/`,
     }));
 
-    logger.info(`s3.listObjectsV2()...`);
+    logger.info(`s3.listObjectsV2(${Bucket}, "test/")...`);
 
     if (typeof erc_object_list.Contents !== "object" || erc_object_list.Contents?.length === 0) {
       logger.info(`No objects found under s3://${Bucket}/test/`);
@@ -73,7 +74,8 @@ const erc_test = {
 
     const value = {
       "erc_s3_test": JSON.parse(erc_metadata_body_to_string),
-      "message": erc_metadata_body_to_string
+      "message": erc_metadata_body_to_string,
+      "type": "erc_test"
     };
 
     return [{ // An array (list) fails to transfer gzipped by local sam cli...

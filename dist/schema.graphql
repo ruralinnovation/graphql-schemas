@@ -158,6 +158,7 @@ scalar JSONObject
 type ERCS3TestObject {
   erc_s3_test: JSONObject
   message: String
+  type: String
 }
 
 type ERCValue {
