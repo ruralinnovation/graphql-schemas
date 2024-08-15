@@ -2,21 +2,75 @@
 import { GraphQLObjectType, GraphQLString } from "graphql/type";
 import { JSONObject } from "../../types";
 import { S3 } from "@aws-sdk/client-s3";
+import { exec } from "child_process";
 
-
+/**
+ * TODO: Debug this error...
 // const logger = new Logger();
-// // Logger object is currently producing this error when run locally w/ SAM:
-// // RangeError: Invalid time zone specified: :/etc/localtime,
-// //     at new DateTimeFormat (<anonymous>),
-// //     at #getDateFormatter (/var/task/index.js:127448:16),
-// //     at #generateISOTimestampWithOffset (/var/task/index.js:127460:82),
-// //     at PowertoolsLogFormatter2.formatTimestamp (/var/task/index.js:127429:54),
-// //     at PowertoolsLogFormatter2.formatAttributes (/var/task/index.js:127540:27),
-// //     at Logger2.createAndPopulateLogItem (/var/task/index.js:127832:39),
-// //     at Logger2.processLogItem (/var/task/index.js:127870:42),
-// //     at Logger2.info (/var/task/index.js:127670:14),
-// //     at resolve (/var/task/index.js:128046:17),
-// //     at field.resolve (/var/task/index.js:57435:22)
+ * RangeError: Invalid time zone specified: :/etc/localtime,
+ *  at new DateTimeFormat (<anonymous>),
+ *  at #getDateFormatter (/var/task/index.js:127448:16),
+ *  at #generateISOTimestampWithOffset (/var/task/index.js:127460:82),
+ *  at PowertoolsLogFormatter2.formatTimestamp (/var/task/index.js:127429:54),
+ *  at PowertoolsLogFormatter2.formatAttributes (/var/task/index.js:127540:27),
+ *  at Logger2.createAndPopulateLogItem (/var/task/index.js:127832:39),
+ *  at Logger2.processLogItem (/var/task/index.js:127870:42),
+ *  at Logger2.info (/var/task/index.js:127670:14),
+ *  at resolve (/var/task/index.js:128046:17),
+ *  at field.resolve (/var/task/index.js:57435:22)
+ */
+
+// exec('date', (err, stdout, stderr) => {
+//     // the *entire* stdout and stderr (buffered)
+//     console.log(`stdout: ${stdout}`);
+//     // console.log(`stderr: ${stderr}`);
+//
+//     if (err) {
+//         // node couldn't execute the command
+//         return;
+//     }
+// });
+exec('ls -l /etc/localtime', (err, stdout, stderr) => {
+    // the *entire* stdout and stderr (buffered)
+    console.log(`stdout: ${stdout}`);
+    // console.log(`stderr: ${stderr}`);
+
+    if (err) {
+        // node couldn't execute the command
+        return;
+    }
+});
+exec('timedatectl set-timezone America/New_York', (err, stdout, stderr) => {
+    // the *entire* stdout and stderr (buffered)
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+    console.log("");
+
+    if (err) {
+        // node couldn't execute the command
+        return;
+    }
+});
+exec('ls -l /etc/localtime', (err, stdout, stderr) => {
+    // the *entire* stdout and stderr (buffered)
+    console.log(`stdout: ${stdout}`);
+    // console.log(`stderr: ${stderr}`);
+
+    if (err) {
+        // node couldn't execute the command
+        return;
+    }
+});
+exec('zdump /etc/localtime', (err, stdout, stderr) => {
+    // the *entire* stdout and stderr (buffered)
+    console.log(`stdout: ${stdout}`);
+    // console.log(`stderr: ${stderr}`);
+
+    if (err) {
+        // node couldn't execute the command
+        return;
+    }
+});
 
 const s3_test = {
     type: new GraphQLObjectType({
