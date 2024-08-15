@@ -24,7 +24,7 @@ declare const auction_904_authorized: {
         offset: number | undefined;
         page: number | undefined;
         skipCache: boolean | undefined;
-    }, { dataSources: { pythonApi }, redisClient }: any, info: any) => Promise<{
+    }, { dataSources: { restApi }, redisClient }: any, info: any) => Promise<{
         type: string;
         features: any;
     }>;

@@ -65,9 +65,9 @@ export default function (queries: [any]) {
       //   ) => {
       //     if (state_abbr) {
       //       return skipCache
-      //         ? await dataSources.pythonApi.getItem(`bcat/${table}/geojson?state_abbr=${state_abbr}`)
+      //         ? await dataSources.restApi.getItem(`bcat/${table}/geojson?state_abbr=${state_abbr}`)
       //         : await redisClient.checkCache(`${table}-${state_abbr}`, async () => {
-      //             return await dataSources.pythonApi.getItem(`bcat/${table}/geojson?state_abbr=${state_abbr}`);
+      //             return await dataSources.restApi.getItem(`bcat/${table}/geojson?state_abbr=${state_abbr}`);
       //           });
       //     } else {
       //       if (!counties) {
@@ -79,9 +79,9 @@ export default function (queries: [any]) {
       //           // eslint-disable-next-line @typescript-eslint/no-explicit-any
       //           const res: any = skipCache
       //             ? await redisClient.checkCache(`${table}-${geoid_co}`, async () => {
-      //                 return await dataSources.pythonApi.getItem(`bcat/${table}/geojson?geoid_co=${geoid_co}`);
+      //                 return await dataSources.restApi.getItem(`bcat/${table}/geojson?geoid_co=${geoid_co}`);
       //               })
-      //             : await dataSources.pythonApi.getItem(`bcat/${table}/geojson?geoid_co=${geoid_co}`);
+      //             : await dataSources.restApi.getItem(`bcat/${table}/geojson?geoid_co=${geoid_co}`);
       //           if (res) {
       //             return {
       //               ...featureCollection,
@@ -120,7 +120,7 @@ export default function (queries: [any]) {
       //     info: any
       //   ) => {
       //     return await redisClient.checkCache(`${table}-${geoid_co}`, async () => {
-      //       return await dataSources.pythonApi.getItem(`bcat/${table}/geojson?geoid_co=${geoid_co}`);
+      //       return await dataSources.restApi.getItem(`bcat/${table}/geojson?geoid_co=${geoid_co}`);
       //     });
       //   },
       // },

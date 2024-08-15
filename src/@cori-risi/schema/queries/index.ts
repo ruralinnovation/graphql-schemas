@@ -12,5 +12,5 @@ export { default as bcatQueries } from './bcat';
                                                 //   You can mark the path "pg-hstore" as external to exclude it from the bundle, which will remove
                                                 //   this error. You can also surround this "require" call with a try/catch block to handle this
                                                 //   failure at run-time instead of bundle-time.
-
-export { default as ercQueries } from './erc';
+                                                //
+export { default as s3Queries } from './s3';

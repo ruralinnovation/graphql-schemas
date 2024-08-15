@@ -18,13 +18,13 @@ export default {
     resolve: async (
       _: any,
       { county, skipCache }: { county: string[]; skipCache: boolean | undefined },
-      { dataSources: { pythonApi }, redisClient }: any,
+      { dataSources: { restApi }, redisClient }: any,
       info: any
     ) => {
       return skipCache
-        ? await pythonApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${county}`)
+        ? await restApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${county}`)
         : await redisClient.checkCache(`county_adjacency_crosswalk-${county}`, async () => {
-            return await pythonApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${county}`);
+            return await restApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${county}`);
           });
     },
   },

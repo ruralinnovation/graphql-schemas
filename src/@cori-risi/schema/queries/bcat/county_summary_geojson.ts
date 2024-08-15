@@ -17,7 +17,7 @@ const county_summary_geojson = {
   resolve: async (
     _: any,
     { geoid_co, skipCache }: { geoid_co: string; skipCache: boolean | undefined },
-    { dataSources: { pythonApi }, redisClient }: any,
+    { dataSources: { restApi }, redisClient }: any,
     info: any
   ) => {
 
@@ -28,8 +28,8 @@ const county_summary_geojson = {
     }
     
     // TODO: Remove after testing call to local Python REST API
-    console.log(`Query pythonApi: ${pythonApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`);
-    const test_req = fetch(`${pythonApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+    console.log(`Query restApi: ${restApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+    const test_req = fetch(`${restApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`);
 
     test_req
       .catch((err) => console.log("Test Python REST error: ",err))
@@ -40,9 +40,9 @@ const county_summary_geojson = {
     console.log(test_req);
 
     return skipCache
-      ? await pythonApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`)
+      ? await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`)
       : await redisClient.checkCache(`county_summary-${geoid_co}`, async () => {
-        return await pythonApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+        return await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`);
       });
   },
 };
