@@ -16,6 +16,7 @@ type RootQueryType {
   auction_904_subsidy_awards_geojson(geoid_co: String, limit: Int, offset: Int, page: Int, skipCache: Boolean): GeoJSONFeatureCollection
   erc_test: ERCS3TestObject
   erc_value: ERCValue
+  s3_test: S3Test
 }
 
 """Geometry Types"""
@@ -130,6 +131,7 @@ type GeoJSONMultiPolygon implements GeoJSONInterface & GeoJSONGeometryInterface 
 
 type ACSTestObject {
   message: String
+  type: String
 }
 
 """A set of multiple features."""
@@ -158,8 +160,15 @@ scalar JSONObject
 type ERCS3TestObject {
   erc_s3_test: JSONObject
   message: String
+  type: String
 }
 
 type ERCValue {
   value: Float
+}
+
+type S3Test {
+  message: String
+  test: JSONObject
+  type: String
 }

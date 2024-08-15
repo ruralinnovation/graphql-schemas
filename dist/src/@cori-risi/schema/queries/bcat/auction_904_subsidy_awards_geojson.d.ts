@@ -23,6 +23,6 @@ declare const auction_904_subsidy_awards_geojson: {
         offset: number | undefined;
         page: number | undefined;
         skipCache: boolean | undefined;
-    }, { dataSources: { pythonApi }, redisClient }: any, info: any) => Promise<any>;
+    }, { dataSources: { restApi }, redisClient }: any, info: any) => Promise<any>;
 };
 export default auction_904_subsidy_awards_geojson;

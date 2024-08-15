@@ -2,12 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import GeoJSON from '../geojson';
-import erc_test from "./erc_test";
-import erc_value from "./erc_value";
+import s3_test from "./s3_test";
+// import erc_value from "./s3_value";
 
-const ercS3Queries: any = {
-  erc_test: erc_test,
-  erc_value: erc_value
+const s3Queries: any = {
+  s3_test
 };
 
-export default ercS3Queries;
+export default s3Queries;

@@ -4,8 +4,12 @@
 **/node_modules
 **/swagger/dist
 
+.DS_Store
+public
+
 # amplify
 node_modules
 .amplify
 amplifyconfiguration*
 graphql.*
+schema.graphql

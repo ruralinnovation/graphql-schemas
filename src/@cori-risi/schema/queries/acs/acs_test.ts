@@ -4,16 +4,20 @@ const acs_test = {
   type: new GraphQLObjectType({
     name: 'ACSTestObject',
     fields: () => ({
-      message: { type: GraphQLString }
+      message: { type: GraphQLString },
+      type: { type: GraphQLString }
     })
   }),
   args: null,
   resolve: async (
     _: any,
     __: any,
-    { dataSources: { pythonApi } }: any,
+    { dataSources: { restApi } }: any,
     info: any
-  ) =>  await pythonApi.getItem(`acs/testing`)
+  ) =>  ({
+    type: "acs_test",
+    ...(await restApi.getItem(`acs/testing`))
+  })
 };
 
 export default acs_test;

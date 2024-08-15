@@ -11,6 +11,6 @@ declare const county_summary_geojson: {
     resolve: (_: any, { geoid_co, skipCache }: {
         geoid_co: string;
         skipCache: boolean | undefined;
-    }, { dataSources: { pythonApi }, redisClient }: any, info: any) => Promise<any>;
+    }, { dataSources: { restApi }, redisClient }: any, info: any) => Promise<any>;
 };
 export default county_summary_geojson;

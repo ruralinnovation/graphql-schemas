@@ -2,7 +2,7 @@ import { GraphQLObjectType } from "graphql/type";
 declare const ch_test: {
     type: GraphQLObjectType<any, any>;
     args: null;
-    resolve: (_: any, __: any, { dataSources: { pythonApi } }: any, info: any) => Promise<{
+    resolve: (_: any, __: any, { dataSources: { restApi } }: any, info: any) => Promise<{
         value: any;
     }>;
 };

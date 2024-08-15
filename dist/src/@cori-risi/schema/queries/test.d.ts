@@ -12,7 +12,7 @@ declare const _default: {
         resolve: (_: any, { county, skipCache }: {
             county: string[];
             skipCache: boolean | undefined;
-        }, { dataSources: { pythonApi }, redisClient }: any, info: any) => Promise<any>;
+        }, { dataSources: { restApi }, redisClient }: any, info: any) => Promise<any>;
     };
 };
 export default _default;

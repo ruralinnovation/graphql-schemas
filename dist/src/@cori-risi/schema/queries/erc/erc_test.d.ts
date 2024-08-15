@@ -5,6 +5,7 @@ declare const erc_test: {
     resolve: (_: any, __: any, { dataSources: { pythonApi, s3DataSource } }: any, info: any) => Promise<{
         erc_s3_test: any;
         message: string;
+        type: string;
     }>;
 };
 export default erc_test;
