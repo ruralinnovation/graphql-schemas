@@ -25,8 +25,8 @@ const s3_list_data = {
     resolve: async (
       _: any,
       { bucket, container_name }: {
-          bucket: string,
-          container_name: string
+          bucket: string | undefined,
+          container_name: string | undefined
       },
       {
           dataSources: {
@@ -51,6 +51,10 @@ const s3_list_data = {
         const Bucket =  (!!bucket && bucket.length > 0)?
           "cori-risi-apps" :
           bucket;
+
+        console.log("BUCKET:", Bucket);
+        console.log("bucket:", bucket);
+        console.log("container_name:", container_name);
 
         return (!!container_name && container_name.length > 0)?
           (await S3ListData(Bucket, container_name)) :

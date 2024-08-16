@@ -1,5 +1,5 @@
 import { S3 } from "@aws-sdk/client-s3";
-
+import { S3DataList } from "../../types";
 
 let manifest_string = "";
 
@@ -11,12 +11,6 @@ const test = {
 };
 
 const s3 = new S3();
-
-export interface S3DataList {
-    type: "S3DataList";
-    list: any[],
-    test: any
-}
 
 export default async function S3ListData (
   Bucket: string = "cori-risi-apps",
