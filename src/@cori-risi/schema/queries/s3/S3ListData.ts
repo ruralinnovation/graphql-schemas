@@ -13,7 +13,7 @@ const test = {
 const s3 = new S3();
 
 export default async function S3ListData (
-  Bucket: string = "cori-risi-apps",
+  Bucket: string,
   container_name?: string
 ): Promise<S3DataList>  {
 
