@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from "graphql/type";
+import { GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql/type";
 import { GraphQLList as List, GraphQLNonNull as NonNull } from "graphql/type/definition";
 import { JSONObject } from "../../types";
 import S3ListData from "./S3ListData";
@@ -14,10 +14,20 @@ const s3_list_data = {
             type: { type: GraphQLString }
         })
     }),
-    args: null,
+    args: {
+        bucket: {
+            type: GraphQLString //new GraphQLList(GraphQLString)!,
+        },
+        container_name: {
+            type: GraphQLString
+        }
+    },
     resolve: async (
       _: any,
-      __: any, // { ...args }: { arg: type, ... }
+      { bucket, container_name }: {
+          bucket: string,
+          container_name: string
+      },
       {
           dataSources: {
               restApi,
@@ -38,7 +48,13 @@ const s3_list_data = {
         //     "test": test
         // });
 
-        return (await S3ListData("cori-risi-apps"));
+        const Bucket =  (!!bucket && bucket.length > 0)?
+          "cori-risi-apps" :
+          bucket.toString();
+
+        return (!!container_name && container_name.length > 0)?
+          (await S3ListData(Bucket, container_name.toString())) :
+          (await S3ListData(Bucket));
 
     }
 };
