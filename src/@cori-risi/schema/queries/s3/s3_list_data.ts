@@ -49,8 +49,8 @@ const s3_list_data = {
         // });
 
         const Bucket =  (!!bucket && bucket.length > 0)?
-          "cori-risi-apps" :
-          bucket;
+          bucket :
+          "cori-risi-apps";
 
         console.log("BUCKET:", Bucket);
         console.log("bucket:", bucket);
