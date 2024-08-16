@@ -118,64 +118,64 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
               ] = true;
 
             // 5) Does manifest contain data list?
-            if (
-              !manifest.hasOwnProperty("data")
-              || typeof manifest["data"] !== "object"
-              || manifest["data"].length < 1
-            ) {
-                // 5a) manifest does not list data, so check the directory list
-                if (
-                  !manifest.hasOwnProperty("directories")
-                  || typeof manifest["directories"] !== "object"
-                  || manifest["directories"].length < 1
-                ) {
-                    // 5b) manifest does not list directories
-                    return ({
-                        type: "s3_list_data",
-                        list: [],
-                        test: test
-                    });
-                } else {
-                    // 5b) Call this function for each directory listed
-                    const list_dir_data = (await Promise.all(
-                      manifest["directories"].map((d: string) => S3ListData(Bucket, (!!name) ? name + "/" + d : d))
-                    ));
-
-                    // console.log("FOUND:", list_dir_data);
-
-                    return ({
-                        type: "s3_list_data",
-                        list: [
-                          ...list_dir_data.reduce((prev, curr) => {
-                                // console.log(prev, curr);
-                                if (curr.hasOwnProperty("list") && curr["list"].length > 0) {
-                                    return (prev.hasOwnProperty("length") && prev.length > 0) ? [
-                                      ...prev,
-                                      ...curr["list"]
-                                    ] : [
-                                      ...curr["list"]
-                                    ];
-                                } else {
-                                    return prev;
-                                }
-                            }, {})
-                        ],
-                        test: test
-                    });
-
-                }
-            } else {
+            const list = (
+              !!manifest.hasOwnProperty("data")
+              && typeof manifest["data"] === "object"
+              && manifest["data"].length > 0
+            ) ? (() => {
                 test[
                   "S3ListData manifest contains valid list of data"
                   ] = true;
 
-                // 6 list the data
+                // 5a) list the data
+                return manifest["data"];
+            })() : [];
+
+            // 6) Do subdirectories contain data?
+            if (
+              !!manifest.hasOwnProperty("directories")
+              && typeof manifest["directories"] === "object"
+              && manifest["directories"].length > 0
+            ) {
+                // 6a) Call this function for each directory listed
+                const list_dir_data = (await Promise.all(
+                  manifest["directories"].map((d: string) => S3ListData(Bucket, (!!name) ? name + "/" + d : d))
+                ));
+
+                // console.log("FOUND:", list_dir_data);
+
                 return ({
                     type: "s3_list_data",
-                    list: manifest["data"],
+                    list: [
+                      ...list,
+                      ...list_dir_data.reduce((prev, curr) => {
+                            // console.log(prev, curr);
+                            if (curr.hasOwnProperty("list") && curr["list"].length > 0) {
+                                return (prev.hasOwnProperty("length") && prev.length > 0) ? [
+                                  ...prev,
+                                  ...curr["list"]
+                                ] : [
+                                  ...curr["list"]
+                                ];
+                            } else {
+                                return prev;
+                            }
+                        }, {})
+                    ],
+                    test: test
+                });
+
+            } else {
+
+                // 6a) manifest does not list directories
+                return ({
+                    type: "s3_list_data",
+                    list: list,
                     test: test
                 });
             }
+
+
         }
 
     } catch (e: any) {
