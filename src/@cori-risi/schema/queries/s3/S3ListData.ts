@@ -12,7 +12,16 @@ const test = {
 
 const s3 = new S3();
 
-export default async function S3ListData (Bucket: string = "cori-risi-apps", container_name?: string) {
+export interface S3DataList {
+    type: "S3DataList";
+    list: any[],
+    test: any
+}
+
+export default async function S3ListData (
+  Bucket: string = "cori-risi-apps",
+  container_name?: string
+): Promise<S3DataList>  {
 
     // const container_name = "examples";
 
@@ -34,7 +43,7 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
          * TODO: page through s3_object_list.Contents when there are more than limit of single req/res
          */
         // 2: List objects in container name
-        console.log(`s3.listObjectsV2(${Bucket}, "${name}")...`);
+        console.log(`s3.listObjectsV2("${Bucket}", "${name}")...`);
 
         const s3_object_list = await(s3.listObjectsV2({
             Bucket,
@@ -49,7 +58,7 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
             console.log(`No objects found under s3://${Bucket}/${name}`);
             //  3a.) No manifest found, so will not continue (data has not been indexed for this container)
             return ({
-                type: "s3_list_data",
+                type: "S3DataList",
                 list: [],
                 test: test
             });
@@ -76,7 +85,7 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
         //  3a.) No manifest found, so will not continue (data has not been indexed for this container)
         if (!path_to_manifest || path_to_manifest.length < 1) {
             return ({
-                type: "s3_list_data",
+                type: "S3DataList",
                 list: [],
                 test: test
             });
@@ -107,7 +116,7 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
         if (!manifest || typeof manifest !== "object") {
             // 4a.) manifest is not valid json
             return ({
-                type: "s3_list_data",
+                type: "S3DataList",
                 list: [],
                 test: test
             });
@@ -145,7 +154,7 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
                 // console.log("FOUND:", list_dir_data);
 
                 return ({
-                    type: "s3_list_data",
+                    type: "S3DataList",
                     list: [
                       ...list,
                       ...list_dir_data.reduce((prev, curr) => {
@@ -169,7 +178,7 @@ export default async function S3ListData (Bucket: string = "cori-risi-apps", con
 
                 // 6a) manifest does not list directories
                 return ({
-                    type: "s3_list_data",
+                    type: "S3DataList",
                     list: list,
                     test: test
                 });
@@ -195,7 +204,7 @@ ${manifest_string}
 
     // At this point there was probably an error above
     return ({
-        type: "s3_list_data",
+        type: "S3DataList",
         list: [],
         test: test
     });

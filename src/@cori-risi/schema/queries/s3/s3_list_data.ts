@@ -50,10 +50,10 @@ const s3_list_data = {
 
         const Bucket =  (!!bucket && bucket.length > 0)?
           "cori-risi-apps" :
-          bucket.toString();
+          bucket;
 
         return (!!container_name && container_name.length > 0)?
-          (await S3ListData(Bucket, container_name.toString())) :
+          (await S3ListData(Bucket, container_name)) :
           (await S3ListData(Bucket));
 
     }
