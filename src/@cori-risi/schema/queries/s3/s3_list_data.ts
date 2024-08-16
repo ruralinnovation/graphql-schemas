@@ -1,15 +1,13 @@
-// import { Logger } from "@aws-lambda-powertools/logger";
 import { GraphQLObjectType, GraphQLString } from "graphql/type";
+import { GraphQLList as List, GraphQLNonNull as NonNull } from "graphql/type/definition";
 import { JSONObject } from "../../types";
-import { S3 } from "@aws-sdk/client-s3";
-import { exec } from "child_process";
-import S3Test from "./S3Test";
+import S3ListData from "./S3ListData";
 
-const s3_test = {
+const s3_list_data = {
     type: new GraphQLObjectType({
-        name: 'S3Test',
+        name: 'S3ListData',
         fields: () => ({
-            message: { type: GraphQLString },
+            list: { type: new NonNull(new List(new NonNull(JSONObject))) },
             test: { type: JSONObject }, // <-- object containing results of all tests
                                         // <-- run by the resolver stored as:
                                         // <-- { "test description": true | false }
@@ -29,14 +27,20 @@ const s3_test = {
       info: any
     ) =>  {
 
-        console.log("Resolve S3Test...", {
+        console.log("Resolve S3ListData...", {
             restApi,
             s3DataSource
         });
 
-        return (await S3Test());
+        // return ({
+        //     "type": "s3_list_data",
+        //     "list": [],
+        //     "test": test
+        // });
+
+        return (await S3ListData("cori-risi-apps"));
 
     }
 };
 
-export default s3_test;
+export default s3_list_data;

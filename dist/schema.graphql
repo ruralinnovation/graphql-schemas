@@ -15,6 +15,7 @@ type RootQueryType {
   auction_904_defaults_geojson(geoid_co: String, geoid_bl: [String], limit: Int, offset: Int, page: Int, skipCache: Boolean): GeoJSONFeatureCollection
   auction_904_subsidy_awards_geojson(geoid_co: String, limit: Int, offset: Int, page: Int, skipCache: Boolean): GeoJSONFeatureCollection
   s3_test: S3Test
+  s3_list_data: S3ListData
 }
 
 """Geometry Types"""
@@ -157,6 +158,12 @@ scalar JSONObject
 
 type S3Test {
   message: String
+  test: JSONObject
+  type: String
+}
+
+type S3ListData {
+  list: [JSONObject!]!
   test: JSONObject
   type: String
 }
