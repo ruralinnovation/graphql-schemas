@@ -48,16 +48,16 @@ const auction_904_subsidy_awards_geojson = {
       page :
       0;
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true")
       redisClient.disconnect();
     }
 
     // TODO: Remove after testing call to local Python REST API
-    console.log(`Query restApi: ${restApi.baseURL}bcat/auction_904_subsidy_awards/geojson`
+    console.log(`Query restApi: ${restApi.baseURL}/bcat/auction_904_subsidy_awards/geojson`
       + `?geoid_co=${geoid_co}&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
-    const test_req = fetch(`${restApi.baseURL}bcat/auction_904_subsidy_awards/geojson`
+    const test_req = fetch(`${restApi.baseURL}/bcat/auction_904_subsidy_awards/geojson`
       + `?geoid_co=${geoid_co}&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
 
     test_req
@@ -69,11 +69,11 @@ const auction_904_subsidy_awards_geojson = {
     console.log(test_req);
 
     return skipCache
-      ? await restApi.getItem(`bcat/auction_904_subsidy_awards/geojson`
+      ? await restApi.getItem(`/bcat/auction_904_subsidy_awards/geojson`
         + `?geoid_co=${geoid_co}&limit=${page_size}&offset=${count_offset}&page=${page_number}`)
       : await redisClient.checkCache(`auction_904_subsidy_awards-`
         + `${geoid_co}-${page_size}-${count_offset}-${page_number}`, async () => {
-        return await restApi.getItem(`bcat/auction_904_subsidy_awards/geojson`
+        return await restApi.getItem(`/bcat/auction_904_subsidy_awards/geojson`
           + `?geoid_co=${geoid_co}&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
       });
   },

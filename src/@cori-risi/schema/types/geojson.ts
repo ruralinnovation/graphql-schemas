@@ -19,7 +19,7 @@ function parseCoordinates(valueAST: any) {
   return valueAST.value;
 }
 
-const GeoJSON = {
+const GeoJSON: any = {
   TypeEnum: new EnumType({
     name: 'GeoJSONType',
     description: 'Enumeration of all GeoJSON object types.',
@@ -44,7 +44,7 @@ const GeoJSON = {
     parseLiteral: parseCoordinates,
   }),
 
-  JSONObject: JSONObject,
+  JSONScalar: JSONObject,
 
   PointObject: new ObjectType({
     name: 'GeoJSONPoint',
@@ -139,7 +139,7 @@ const GeoJSON = {
       crs: { type: GeoJSON.CoordinateReferenceSystemObject },
       bbox: { type: new List(Float) },
       geometry: { type: GeoJSON.GeometryInterface },
-      properties: { type: GeoJSON.JSONObject },
+      properties: { type: GeoJSON.JSONScalar },
       id: { type: Str },
     }),
   }),
@@ -228,6 +228,22 @@ const GeoJSON = {
     // resolveType: value => value.type,
   }),
 
+  /**
+   *     name: 'GeoJSONType',
+    description: 'Enumeration of all GeoJSON object types.',
+    values: {
+      Point: { value: 'Point' },
+      MultiPoint: { value: 'MultiPoint' },
+      LineString: { value: 'LineString' },
+      MultiLineString: { value: 'MultiLineString' },
+      Polygon: { value: 'Polygon' },
+      MultiPolygon: { value: 'MultiPolygon' },
+      GeometryCollection: { value: 'GeometryCollection' },
+      Feature: { value: 'Feature' },
+      FeatureCollection: { value: 'FeatureCollection' },
+    },
+  }),
+   */
   GeometryTypeUnion: new UnionType({
     name: 'GeoJSONGeometryTypes',
     description: 'Geometry Types',

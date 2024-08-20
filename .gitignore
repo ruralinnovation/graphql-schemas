@@ -5,9 +5,11 @@
 **/swagger/dist
 
 .DS_Store
-public
+public/
 
 # amplify
+build/
+#dist/
 node_modules
 .amplify
 amplifyconfiguration*

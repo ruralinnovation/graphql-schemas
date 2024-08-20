@@ -32,9 +32,9 @@ export const bcatQueries: any = {
         async (fc, geoid_co) => {
           const featureCollection = await fc;
           const res: any = skipCache
-            ? await restApi.getItem(`bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`)
+            ? await restApi.getItem(`/bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`)
             : await redisClient.checkCache(`auction_904_subsidy_awards-${geoid_co}`, async () => {
-                return await restApi.getItem(`bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`);
+                return await restApi.getItem(`/bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`);
               });
           if (res) {
             return {
@@ -69,9 +69,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`)
+        ? await restApi.getItem(`/bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`)
         : await redisClient.checkCache(`auction_904_subsidy_awards-${geoid_co}`, async () => {
-            return await restApi.getItem(`bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`);
+            return await restApi.getItem(`/bcat/auction_904_subsidy_awards/geojson?geoid_co=${geoid_co}`);
           });
     },
   },
@@ -95,9 +95,9 @@ export const bcatQueries: any = {
         async (fc, geoid_co) => {
           const featureCollection = await fc;
           const res: any = skipCache
-            ? await restApi.getItem(`bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`)
+            ? await restApi.getItem(`/bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`)
             : await redisClient.checkCache(`broadband_unserved_blocks-${geoid_co}`, async () => {
-                return await restApi.getItem(`bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`);
+                return await restApi.getItem(`/bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`);
               });
           if (res) {
             return {
@@ -132,9 +132,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`)
+        ? await restApi.getItem(`/bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`)
         : await redisClient.checkCache(`broadband_unserved_blocks-${geoid_co}`, async () => {
-            return await restApi.getItem(`bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`);
+            return await restApi.getItem(`/bcat/broadband_unserved_blocks/geojson?geoid_co=${geoid_co}`);
           });
     },
   },
@@ -155,10 +155,10 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/county_broadband_farm_bill_eligibility/geojson?state_abbr=${state_abbr}`)
+        ? await restApi.getItem(`/bcat/county_broadband_farm_bill_eligibility/geojson?state_abbr=${state_abbr}`)
         : await redisClient.checkCache(`county_broadband_farm_bill_eligibility-${state_abbr}`, async () => {
             return await restApi.getItem(
-              `bcat/county_broadband_farm_bill_eligibility/geojson?state_abbr=${state_abbr}`
+              `/bcat/county_broadband_farm_bill_eligibility/geojson?state_abbr=${state_abbr}`
             );
           });
     },
@@ -180,9 +180,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/county_broadband_pending_rural_dev/geojson?state_abbr=${state_abbr}`)
+        ? await restApi.getItem(`/bcat/county_broadband_pending_rural_dev/geojson?state_abbr=${state_abbr}`)
         : await redisClient.checkCache(`county_broadband_pending_rural_dev-${state_abbr}`, async () => {
-            return await restApi.getItem(`bcat/county_broadband_pending_rural_dev/geojson?state_abbr=${state_abbr}`);
+            return await restApi.getItem(`/bcat/county_broadband_pending_rural_dev/geojson?state_abbr=${state_abbr}`);
           });
     },
   },
@@ -203,9 +203,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/county_ilecs_geo/geojson?state_abbr=${state_abbr}`)
+        ? await restApi.getItem(`/bcat/county_ilecs_geo/geojson?state_abbr=${state_abbr}`)
         : await redisClient.checkCache(`county_ilecs_geo-${state_abbr}`, async () => {
-            return await restApi.getItem(`bcat/county_ilecs_geo/geojson?state_abbr=${state_abbr}`);
+            return await restApi.getItem(`/bcat/county_ilecs_geo/geojson?state_abbr=${state_abbr}`);
           });
     },
   },
@@ -226,10 +226,10 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/county_rural_dev_broadband_protected_borrowers/geojson?state_abbr=${state_abbr}`)
+        ? await restApi.getItem(`/bcat/county_rural_dev_broadband_protected_borrowers/geojson?state_abbr=${state_abbr}`)
         : await redisClient.checkCache(`county_rural_dev_broadband_protected_borrowers-${state_abbr}`, async () => {
             return await restApi.getItem(
-              `bcat/county_rural_dev_broadband_protected_borrowers/geojson?state_abbr=${state_abbr}`
+              `/bcat/county_rural_dev_broadband_protected_borrowers/geojson?state_abbr=${state_abbr}`
             );
           });
     },
@@ -254,16 +254,16 @@ export const bcatQueries: any = {
       return await geoid_co.reduce(
         async (fc, geoid_co) => {
           // TODO: Remove after testing call to local Python REST API
-          console.log(`Query restApi: ${restApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`);
-          fetch(`${restApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`)
+          console.log(`Query restApi: ${restApi.baseURL}/bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+          fetch(`${restApi.baseURL}/bcat/county_summary/geojson?geoid_co=${geoid_co}`)
             .catch((err) => console.log(err))
             .then((res) => console.log(res));
 
           const featureCollection = await fc;
           const res: any = skipCache
-            ? await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`)
+            ? await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}`)
             : await redisClient.checkCache(`county_summary-${geoid_co}`, async () => {
-                return await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+                return await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}`);
               });
           if (res) {
             return {
@@ -297,7 +297,7 @@ export const bcatQueries: any = {
   //     { dataSources: { restApi } }: any,
   //     info: any
   //   ) => {
-  //     return await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}&page=${page}`);
+  //     return await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}&page=${page}`);
   //         if (res) {
   //           return {
   //             ...featureCollection,
@@ -331,15 +331,15 @@ export const bcatQueries: any = {
       info: any
     ) => {
       // TODO: Remove after testing call to local Python REST API
-      console.log(`Query restApi: ${restApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`);
-      fetch(`${restApi.baseURL}bcat/county_summary/geojson?geoid_co=${geoid_co}`)
+      console.log(`Query restApi: ${restApi.baseURL}/bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+      fetch(`${restApi.baseURL}/bcat/county_summary/geojson?geoid_co=${geoid_co}`)
         .catch((err) => console.log(err))
         .then((res) => console.log(res));
 
       return skipCache
-        ? await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`)
+        ? await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}`)
         : await redisClient.checkCache(`county_summary-${geoid_co}`, async () => {
-            return await restApi.getItem(`bcat/county_summary/geojson?geoid_co=${geoid_co}`);
+            return await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}`);
           });
     },
   },
@@ -363,9 +363,9 @@ export const bcatQueries: any = {
         async (fc, geoid_co) => {
           const featureCollection = await fc;
           const res: any = skipCache
-            ? await restApi.getItem(`bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`)
+            ? await restApi.getItem(`/bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`)
             : await redisClient.checkCache(`fiber_cable_unserved_blocks-${geoid_co}`, async () => {
-                return await restApi.getItem(`bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`);
+                return await restApi.getItem(`/bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`);
               });
           if (res) {
             return {
@@ -400,9 +400,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`)
+        ? await restApi.getItem(`/bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`)
         : await redisClient.checkCache(`fiber_cable_unserved_blocks-${geoid_co}`, async () => {
-            return await restApi.getItem(`bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`);
+            return await restApi.getItem(`/bcat/fiber_cable_unserved_blocks/geojson?geoid_co=${geoid_co}`);
           });
     },
   },
@@ -423,9 +423,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/incumbent_electric_providers_geo/geojson?state_abbr=${state_abbr}`)
+        ? await restApi.getItem(`/bcat/incumbent_electric_providers_geo/geojson?state_abbr=${state_abbr}`)
         : await redisClient.checkCache(`incumbent_electric_providers_geo-${state_abbr}`, async () => {
-            return await restApi.getItem(`bcat/incumbent_electric_providers_geo/geojson?state_abbr=${state_abbr}`);
+            return await restApi.getItem(`/bcat/incumbent_electric_providers_geo/geojson?state_abbr=${state_abbr}`);
           });
     },
   },
@@ -449,9 +449,9 @@ export const bcatQueries: any = {
         async (fc, geoid_co) => {
           const featureCollection = await fc;
           const res: any = skipCache
-            ? await restApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`)
+            ? await restApi.getItem(`/bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`)
             : await redisClient.checkCache(`county_adjacency_crosswalk-${geoid_co}`, async () => {
-                return await restApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`);
+                return await restApi.getItem(`/bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`);
               });
           if (res) {
             return {
@@ -486,9 +486,9 @@ export const bcatQueries: any = {
       info: any
     ) => {
       return skipCache
-        ? await restApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`)
+        ? await restApi.getItem(`/bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`)
         : await redisClient.checkCache(`county_adjacency_crosswalk-${geoid_co}`, async () => {
-            return await restApi.getItem(`bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`);
+            return await restApi.getItem(`/bcat/county_adjacency_crosswalk/geojson?geoid_co=${geoid_co}`);
           });
     },
   },

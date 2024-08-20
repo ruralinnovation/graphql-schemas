@@ -56,17 +56,17 @@ const auction_904_ready_geojson = {
       page :
       0;
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true")
       redisClient.disconnect();
     }
 
     // TODO: Remove after testing call to local Python REST API
-    console.log(`Query restApi: ${restApi.baseURL}bcat/auction_904_ready/geojson`
+    console.log(`Query restApi: ${restApi.baseURL}/bcat/auction_904_ready/geojson`
       + `?geoid_co=${geoid_co}` + ((!!geoids)? `&geoid_bl=${geoids}` : ``)
       + `&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
-    const test_req = fetch(`${restApi.baseURL}bcat/auction_904_ready/geojson`
+    const test_req = fetch(`${restApi.baseURL}/bcat/auction_904_ready/geojson`
       + `?geoid_co=${geoid_co}` + ((!!geoids)? `&geoid_bl=${geoids}` : ``)
       + `&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
 
@@ -79,12 +79,12 @@ const auction_904_ready_geojson = {
     console.log(test_req);
 
     return skipCache
-      ? await restApi.getItem(`bcat/auction_904_ready/geojson`
+      ? await restApi.getItem(`/bcat/auction_904_ready/geojson`
         + `?geoid_co=${geoid_co}` + ((!!geoids)? `&geoid_bl=${geoids}` : ``)
         + `&limit=${page_size}&offset=${count_offset}&page=${page_number}`)
       : await redisClient.checkCache(`auction_904_ready-`
         + `${geoid_co}` + ((!!geoids) ? `-${geoids}` : ``) + `-${page_size}-${count_offset}-${page_number}`, async () => {
-        return await restApi.getItem(`bcat/auction_904_ready/geojson`
+        return await restApi.getItem(`/bcat/auction_904_ready/geojson`
           + `?geoid_co=${geoid_co}` + ((!!geoids)? `&geoid_bl=${geoids}` : ``)
           + `&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
       });

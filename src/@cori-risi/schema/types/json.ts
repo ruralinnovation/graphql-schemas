@@ -1,7 +1,7 @@
 import { GraphQLScalarType as ScalarType } from "graphql/type/definition";
 import { parse, stringify } from "flatted";
 
-function coerceObject (value: any) {
+export function coerceObject (value: any) {
   try {
     return parse(value);
   } catch (err) {
@@ -9,7 +9,7 @@ function coerceObject (value: any) {
   }
 }
 
-function parseObject (valueAST: any) {
+export function parseObject (valueAST: any) {
   return stringify(valueAST.value);
 }
 

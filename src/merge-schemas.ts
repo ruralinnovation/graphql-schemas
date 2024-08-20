@@ -16,6 +16,7 @@ export default function (queries: [any]) {
     };
   }, {});
 
+  console.log("combinedQueries:", combinedQueries);
 
   const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',

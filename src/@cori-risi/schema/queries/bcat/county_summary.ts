@@ -57,13 +57,13 @@ const county_summary = {
       page :
       0;
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" || !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
-      console.log("Disconnect from redis when ever skipCache == true")
+      console.log("Disconnect from redis when ever skipCache == true");
       redisClient.disconnect();
     }
 
-    const rest_uri = `${restApi.baseURL}bcat/county_summary${
+    const rest_uri = `${restApi.baseURL}/bcat/county_summary${
       (geoids === "all") ? 
         "?limit=0" : 
         `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`
@@ -78,8 +78,8 @@ const county_summary = {
 
         // const featureCollection = await fc;
         const res: any = (geoids === "all") ? await (async () => {
-            const fc = (skipCache)
-              ? await restApi.getItem(`bcat/county_summary?limit=0`)
+            const fc = (typeof redisClient === "undefined" || !!skipCache)
+              ? await restApi.getItem(`/bcat/county_summary?limit=0`)
               : await redisClient.checkCache(`county_summary-0`, async () => {
                 // TODO: Remove after testing call to local Python REST API
                 fetch(rest_uri)
@@ -98,7 +98,7 @@ const county_summary = {
                     );
                   });
 
-                return await restApi.getItem(`bcat/county_summary?limit=0`);
+                return await restApi.getItem(`/bcat/county_summary?limit=0`);
               });
 
             return ({
@@ -112,10 +112,10 @@ const county_summary = {
                 fc.features
             });
           })():
-          (skipCache)
+          (typeof redisClient === "undefined" || !!skipCache)
             // @TODO: Fix this so that we send individual requests for *each* geoid
             // and then merge the results into single feature collection
-            ? await restApi.getItem(`bcat/county_summary`
+            ? await restApi.getItem(`/bcat/county_summary`
               + `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`)
             : await redisClient.checkCache(`county_summary-`
               + `${geoids}-${page_size}-${count_offset}-${page_number}`, async () => {
@@ -125,7 +125,7 @@ const county_summary = {
                 .catch((err) => console.log("Test Python REST error: ", err))
                 .then((res) => console.log("Test Python REST response: ", res));
 
-              return await restApi.getItem(`bcat/county_summary`
+              return await restApi.getItem(`/bcat/county_summary`
                 + `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
             });
 

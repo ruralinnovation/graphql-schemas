@@ -52,13 +52,13 @@ const auction_904_authorized = {
       page :
       0;
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true")
       redisClient.disconnect();
     }
 
-    const rest_uri = `${restApi.baseURL}bcat/auction_904_authorized${
+    const rest_uri = `${restApi.baseURL}/bcat/auction_904_authorized${
       (geoids === "all") ?
         `?limit=${page_size}&offset=${count_offset}&page=${page_number}` : 
         `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`
@@ -73,8 +73,8 @@ const auction_904_authorized = {
 
         //     const featureCollection = await fc;
         const res: any = (geoids === "all") ? await (async () => {
-            const fc = (skipCache)
-              ? await restApi.getItem(`bcat/auction_904_authorized?limit=${page_size}&offset=${count_offset}&page=${page_number}`)
+            const fc = (typeof redisClient === "undefined" || !!skipCache)
+              ? await restApi.getItem(`/bcat/auction_904_authorized?limit=${page_size}&offset=${count_offset}&page=${page_number}`)
               : await redisClient.checkCache(`auction_904_authorized-`
                 + `${page_size}-${count_offset}-${page_number}`, async () => {
 
@@ -96,7 +96,7 @@ const auction_904_authorized = {
                     );
                   });
 
-                return await restApi.getItem(`bcat/auction_904_authorized?limit=${page_size}&offset=${count_offset}&page=${page_number}`);
+                return await restApi.getItem(`/bcat/auction_904_authorized?limit=${page_size}&offset=${count_offset}&page=${page_number}`);
               });
 
             return ({
@@ -110,8 +110,8 @@ const auction_904_authorized = {
                 fc.features
             });
           })():
-          (skipCache)
-            ? await restApi.getItem(`bcat/auction_904_authorized`
+          (typeof redisClient === "undefined" || !!skipCache)
+            ? await restApi.getItem(`/bcat/auction_904_authorized`
               + `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`)
             : await redisClient.checkCache(`auction_904_authorized-`
               + `${geoids}-${page_size}-${count_offset}-${page_number}`, async () => {
@@ -121,7 +121,7 @@ const auction_904_authorized = {
                 .catch((err) => console.log("Test Python REST error: ", err))
                 .then((res) => console.log("Test Python REST response: ", res));
 
-              return await restApi.getItem(`bcat/auction_904_authorized`
+              return await restApi.getItem(`/bcat/auction_904_authorized`
                 + `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`);
             });
 
