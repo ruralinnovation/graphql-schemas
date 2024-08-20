@@ -27,5 +27,6 @@
     "types": [ "node" ],
     "outDir": "dist"
   },
+  "include": [ "./index.ts", "./server.ts" ],
   "exclude": ["./dist/**/*", "cdk.out", "dist", "node_modules", "./src/main.tsx"]
 }

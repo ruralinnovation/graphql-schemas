@@ -1,5 +1,4 @@
-import { GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql/type";
-import { GraphQLList as List, GraphQLNonNull as NonNull } from "graphql/type/definition";
+import { GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql/type";
 import { JSONObject } from "../../types";
 import S3ListData from "./S3ListData";
 
@@ -7,7 +6,7 @@ const s3_list_data = {
     type: new GraphQLObjectType({
         name: 'S3ListData',
         fields: () => ({
-            list: { type: new NonNull(new List(new NonNull(JSONObject))) },
+            list: { type: new GraphQLNonNull (new GraphQLList(new GraphQLNonNull (JSONObject))) },
             test: { type: JSONObject }, // <-- object containing results of all tests
                                         // <-- run by the resolver stored as:
                                         // <-- { "test description": true | false }
@@ -29,18 +28,15 @@ const s3_list_data = {
           container_name: string | undefined
       },
       {
-          dataSources: {
-              restApi,
-              s3DataSource
-          }
+          dataSources //: { restApi, s3DataSource }
       }: any,
       info: any
     ) =>  {
 
-        console.log("Resolve S3ListData...", {
-            restApi,
-            s3DataSource
-        });
+        // console.log("Resolve S3ListData...", {
+        //     restApi,
+        //     s3DataSource
+        // });
 
         // return ({
         //     "type": "s3_list_data",

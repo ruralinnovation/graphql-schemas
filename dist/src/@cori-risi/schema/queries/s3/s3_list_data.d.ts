@@ -12,6 +12,6 @@ declare const s3_list_data: {
     resolve: (_: any, { bucket, container_name }: {
         bucket: string | undefined;
         container_name: string | undefined;
-    }, { dataSources: { restApi, s3DataSource } }: any, info: any) => Promise<import("../../types").S3DataList>;
+    }, { dataSources }: any, info: any) => Promise<import("../../types").S3DataList>;
 };
 export default s3_list_data;

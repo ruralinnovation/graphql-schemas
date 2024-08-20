@@ -9,7 +9,7 @@ public/
 
 # amplify
 build/
-dist/
+#dist/
 node_modules
 .amplify
 amplifyconfiguration*

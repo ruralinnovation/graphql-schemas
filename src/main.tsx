@@ -1,16 +1,11 @@
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
 import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { GraphiQL } from 'graphiql';
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import 'graphiql/graphiql.css';
-import { coerceObject, parseObject } from "./@cori-risi/schema/types/json";
 
-(window as any).test_json_functions = {
-    coerceObject,
-    parseObject
-};
+import 'graphiql/graphiql.min.css';
 
-const fetcher = createGraphiQLFetcher({ url: 'http://localhost:2000/graphql' });
+const fetcher = createGraphiQLFetcher({ url: 'http://localhost:4000/graphql' });
 
 
 const react_app_id: string = 'react-app';
