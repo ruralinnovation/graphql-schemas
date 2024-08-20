@@ -52,7 +52,7 @@ const auction_904_authorized = {
       page :
       0;
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true")
       redisClient.disconnect();
@@ -73,7 +73,7 @@ const auction_904_authorized = {
 
         //     const featureCollection = await fc;
         const res: any = (geoids === "all") ? await (async () => {
-            const fc = (skipCache)
+            const fc = (typeof redisClient === "undefined" || !!skipCache)
               ? await restApi.getItem(`/bcat/auction_904_authorized?limit=${page_size}&offset=${count_offset}&page=${page_number}`)
               : await redisClient.checkCache(`auction_904_authorized-`
                 + `${page_size}-${count_offset}-${page_number}`, async () => {
@@ -110,7 +110,7 @@ const auction_904_authorized = {
                 fc.features
             });
           })():
-          (skipCache)
+          (typeof redisClient === "undefined" || !!skipCache)
             ? await restApi.getItem(`/bcat/auction_904_authorized`
               + `?geoid_co=${geoids}&limit=${page_size}&offset=${count_offset}&page=${page_number}`)
             : await redisClient.checkCache(`auction_904_authorized-`

@@ -21,7 +21,7 @@ const county_summary_geojson = {
     info: any
   ) => {
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true")
       redisClient.disconnect();

@@ -48,7 +48,7 @@ const auction_904_subsidy_awards_geojson = {
       page :
       0;
 
-    if (!!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true")
       redisClient.disconnect();
