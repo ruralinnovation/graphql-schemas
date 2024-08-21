@@ -57,7 +57,7 @@ const county_summary = {
       page :
       0;
 
-    if (typeof redisClient !== "undefined" || !!skipCache && typeof redisClient.disconnect === 'function') {
+    if (typeof redisClient !== "undefined" && !!skipCache && typeof redisClient.disconnect === 'function') {
       // Disconnect from redis when ever skipCache == true
       console.log("Disconnect from redis when ever skipCache == true");
       redisClient.disconnect();
