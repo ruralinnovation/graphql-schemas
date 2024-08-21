@@ -39,7 +39,7 @@ const county_summary_geojson = {
 
     console.log(test_req);
 
-    return skipCache
+    return (typeof redisClient === "undefined" || !!skipCache)
       ? await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}`)
       : await redisClient.checkCache(`county_summary-${geoid_co}`, async () => {
         return await restApi.getItem(`/bcat/county_summary/geojson?geoid_co=${geoid_co}`);

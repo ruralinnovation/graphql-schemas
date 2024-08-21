@@ -78,7 +78,7 @@ const auction_904_authorized_geojson = {
 
     console.log(test_req);
 
-    return skipCache
+    return (typeof redisClient === "undefined" || !!skipCache)
       ? await restApi.getItem(`/bcat/auction_904_authorized/geojson`
         + `?geoid_co=${geoid_co}` + ((!!geoids)? `&geoid_bl=${geoids}` : ``)
         + `&limit=${page_size}&offset=${count_offset}&page=${page_number}`)
